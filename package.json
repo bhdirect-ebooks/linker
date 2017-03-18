@@ -6,9 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
   "author": "Peter Turner",
   "license": "ISC",
   "bin": {
     "linker": "./linker.js"
+  },
+  "dependencies": {
+    "yargs": "^7.0.2"
   }
 }
