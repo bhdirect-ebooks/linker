@@ -2,11 +2,10 @@
 'use strict';
 
 const argv = require('yargs')
-  .usage('Usage: $0 <command>')
+  .usage('Usage: $0 <command> <command>')
   .command('file', 'Name of tab-delimited .txt file in META-INF directory to process')
-  .demandCommand(1)
-  .help('h')
-  .alias('h', 'help')
+  .command('start-num', 'Number to start with for building unique ids')
+  .demandCommand(2)
   .argv;
 const fs = require('fs');
 const path = require('path');
@@ -31,15 +30,25 @@ new Promise((resolve, reject) => {
   });
 }).then(text_file_list => getFileText(text_file_list))
   .then(text_files => {
-  for (let i = 0; i < src_entries.length; i++) {
-    let current_entry = src_entries[i].split('\t');
-    let from_file = current_entry[0];
-    let to_file = current_entry[2];
-    let from_string = current_entry[1].replace(/^"|"$/g, '').replace(/""/g, '\"');
-    let to_html = current_entry[3].replace(/^"|"$/g, '').replace(/""/g, '\"');
-  }
-  console.log(Object.keys(text_files));
-}).catch(err => { console.log(err); });
+    let inc = argv._[1];
+    for (let i = 0; i < src_entries.length; i++) {
+      let current_entry = src_entries[i].split('\t');
+      let from_file = current_entry[0];
+      let to_file = current_entry[2];
+      let from_string = current_entry[1].replace(/^"|"$/g, '').replace(/""/g, '\"');
+      let to_html = current_entry[3].replace(/^"|"$/g, '').replace(/""/g, '\"');
+      let to_html_a = to_html.match(/^[^>]+/);
+      let to_html_b = to_html.match(/>.*/);
+
+      let from_string_repl = `<a href="${to_file}#ref${inc}">${from_string}<\/a>`;
+      let to_html_repl = `${to_html_a} id="ref${inc}"${to_html_b}`;
+      text_files[from_file] = text_files[from_file].replace(from_string, from_string_repl);
+      text_files[to_file] = text_files[to_file].replace(to_html, to_html_repl);
+      inc++;
+    }
+    return(text_files);
+  }).then(text_files => writeFileText(Object.keys(text_files), text_files))
+  .catch(err => { console.log(err); });
 
 function getFileText(file_array) {
   return new Promise((resolve, reject) => {
@@ -62,6 +71,10 @@ function getFileText(file_array) {
       resolve(text_files);
     }).catch(err => { reject(err); });
   });
+}
+
+function writeFileText(file_array, file_object) {
+  console.log(file_array);
 }
 
 
