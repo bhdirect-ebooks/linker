@@ -1,0 +1,14 @@
+{
+  "name": "linker",
+  "version": "0.0.1",
+  "description": "Produces links across html documents.",
+  "main": "linker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Peter Turner",
+  "license": "ISC",
+  "bin": {
+    "linker": "./linker.js"
+  }
+}
