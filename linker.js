@@ -48,6 +48,7 @@ new Promise((resolve, reject) => {
     }
     return(text_files);
   }).then(text_files => writeFileText(Object.keys(text_files), text_files))
+  .then(response => { console.log(response); })
   .catch(err => { console.log(err); });
 
 function getFileText(file_array) {
@@ -74,7 +75,24 @@ function getFileText(file_array) {
 }
 
 function writeFileText(file_array, file_object) {
-  console.log(file_array);
+  return new Promise((resolve, reject) => {
+    let file_writer = [];
+    for (let i = 0; i < file_array.length; i++) {
+      file_writer.push(new Promise((resolve, reject) => {
+        fs.writeFile(path.join(text_dir_path, file_array[i]), file_object[file_array[i]], 'utf8', (err) => {
+          if (err) {
+            reject(err);
+          }
+          else {
+            resolve();
+          }
+        });
+      }));
+    }
+    Promise.all(file_writer).then(() => {
+      resolve('Linking complete!');
+    }).catch(err => { reject(err); });
+  });
 }
 
 
