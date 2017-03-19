@@ -12,7 +12,7 @@ const path = require('path');
 const cwd = process.cwd();
 const src_file_path = path.join(cwd, 'META-INF', argv._[0]);
 const src_file_text = fs.readFileSync(src_file_path, 'utf8');
-const src_entries = src_file_text.split('\r');
+const src_entries = src_file_text.split('\n');
 const text_dir_path = path.join(cwd, 'OEBPS/text');
 
 new Promise((resolve, reject) => {
