@@ -4,11 +4,11 @@ _A handy way to create many links across multiple HTML files_
 Usage:
 1. Create a tab-delimited text file in the following format:
 ```regexp
-     file-to-link-from\ttext to link from\tfile-to-link-to\t<html>to link to\n
+file-to-link-from\ttext to link from\tfile-to-link-to\t<html>to link to\n
 ```
    example:
 ```text
-     POSBActSpa02_chapter02.xhtml	I. Los grandes días de expectación	POSBActSpa02_chapter03.xhtml	<h1><span class="label">División I</span>Los Grandes Días de Expectación
+POSBActSpa02_chapter02.xhtml	I. Los grandes días de expectación	POSBActSpa02_chapter03.xhtml	<h1><span class="label">División I</span>Los Grandes Días de Expectación
 ```
     
 2. Save the file in your EPUBs 'META-INF' folder in UTF-8 format with Unix line breaks (`\n`)
