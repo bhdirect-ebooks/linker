@@ -7,7 +7,9 @@ Usage:
      file-to-link-from\ttext to link from\tfile-to-link-to\t<html>to link to\n
 ```
    example:
-     POSBActSpa02_chapter02.xhtml	I. Los grandes días de expectación	POSBActSpa02_chapter03.xhtml	`<h1><span class="label">División I</span>Los Grandes Días de Expectación`
+```text
+     POSBActSpa02_chapter02.xhtml	I. Los grandes días de expectación	POSBActSpa02_chapter03.xhtml	<h1><span class="label">División I</span>Los Grandes Días de Expectación
+```
     
 2. Save the file in your EPUBs 'META-INF' folder in UTF-8 format with Unix line breaks (`\n`)
 3. Install _Linker_ globally after cloning the repo by entering `npm install -g` from within the linker directory
